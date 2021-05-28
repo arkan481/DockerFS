@@ -7,7 +7,8 @@
 Create an auth backend API Using Express JS, connected to containerized mongoDB and containerized the API using Docker, finally upload the image to my own Docker hub private repository.
 
 ## Todo:
-- [ ] [continue the YouTube Learning video](https://www.youtube.com/watch?v=3c-iBn73dDE&t=1771s) at 1:31:27, section Docker compose
+- [ ] Learn more about docker volumes
+- [ ] Learn more about docker networks
 
 ## Author
 
