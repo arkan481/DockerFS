@@ -6,6 +6,15 @@
 ## Goal
 Create an auth backend API Using Express JS, connected to containerized mongoDB and containerized the API using Docker, finally upload the image to my own Docker hub private repository.
 
+## To Run
+1. Clone this repository
+2. Run these scripts in your terminal
+```zsh
+# Brings all docker compose service to life in a detached mode
+docker-compose up -d
+```
+then, go to http://localhost:5000 in your browser.
+
 ## Todo:
 - [ ] Learn more about docker volumes
 - [ ] Learn more about docker networks
