@@ -1,0 +1,47 @@
+version: "3"
+services:
+  dockerfs-mongodb: # The container name
+    image: mongo # The image name
+    ports: # Port configuration
+      # host:port
+      - 3001:27017
+    volumes:
+      # volume-name:container_dir_that_wants_to_be_persisted
+      # because this is a mongodb image, mongo actually stores the data in /data/db, read the docs for other database image.
+      - mongo-data:/data/db
+  dockerfs-mongoexpress:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment: # Environment variable
+      # key=value
+      - ME_CONFIG_MONGODB_SERVER=dockerfs-mongodb
+      - ME_CONFIG_BASICAUTH_USERNAME=bubuw
+      - ME_CONFIG_BASICAUTH_PASSWORD=haibubuw
+    depends_on: # Tells docker this particular service needs to wait for the other specified service before started
+      # container-name
+      - dockerfs-mongodb
+  dockerfs-app:
+    image: arkan481/docker-fs:1.0
+    # build: # Image build options
+    # context: ./ # The location of the dockerfile
+    ports: # Port configuration
+      # host:port
+      - 5000:5000
+    env_file: # specify environment variable in a file
+      - ./app/config/config.env # the location of the file
+    depends_on: # Tells docker this particular service needs to wait for the other specified service before started
+      # container-name
+      - dockerfs-mongodb
+    volumes:
+      # volume-name:container_dir_that_wants_to_be_persisted
+      # cdn volume to store the user uploads file, in this node app, the user uploads is stored in /app/public/uploads
+      - cdn-data:/app/public/uploads/
+
+# Volumes declaration
+volumes:
+  # Volume name
+  mongo-data:
+    driver: local # Volume driver
+  cdn-data:
+    driver: local
